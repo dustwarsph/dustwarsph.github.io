@@ -23,7 +23,8 @@ body{
 .container{max-width:var(--max-width);margin:32px auto;padding:0 20px}
 
 .site-header{position:relative}
-.hero-overlay{position:relative;width:100%;height:360px;overflow:hidden;background:#111;display:flex;align-items:center}
+.site-header{position:fixed;top:0;left:0;right:0;z-index:1200;background:transparent}
+.hero-overlay{position:relative;width:100%;height:360px;overflow:hidden;background:#111;display:flex;align-items:center;transition:height 200ms ease,padding 200ms ease}
 .hero-image{width:100%;height:100%;object-fit:cover;opacity:0.16;display:block}
 .hero-text{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;padding:8px}
 .logo{font-size:64px;letter-spacing:8px;margin:0;font-weight:700}
@@ -32,6 +33,26 @@ body{
 .site-nav{display:flex;gap:14px;justify-content:center;padding:18px 10px;background:#111;color:#fff;flex-wrap:wrap}
 .site-nav a{color:#fff;text-decoration:none;font-weight:600;opacity:0.9}
 .site-nav a:hover{opacity:1;text-decoration:underline}
+
+/* compact header when scrolled */
+.site-header.scrolled .hero-overlay{height:72px}
+.site-header.scrolled .logo{font-size:20px;letter-spacing:2px}
+.site-header.scrolled .byline{display:none}
+
+/* body offset to account for fixed header */
+body { padding-top:360px }
+
+/* Floating action button (FAB) */
+.fab{position:fixed;right:18px;bottom:20px;width:52px;height:52px;border-radius:50%;background:var(--accent5);color:white;border:none;box-shadow:0 6px 18px rgba(0,0,0,0.18);z-index:1400;display:none;align-items:center;justify-content:center;font-size:22px}
+
+/* mobile nav overlay when FAB opens nav */
+.site-nav.mobile-drawer{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(17,17,17,0.98);gap:20px;padding:40px 20px}
+.site-nav.mobile-drawer a{font-size:20px}
+
+@media (max-width:640px){
+  .fab{display:flex}
+  body{padding-top:220px}
+}
 
 .panel{padding:36px 0;border-bottom:1px solid var(--muted)}
 .panel.alt{background:#fafafa}
