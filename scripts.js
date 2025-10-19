@@ -39,15 +39,26 @@
     const targetEl = document.getElementById(targetId);
     if (targetEl) {
       e.preventDefault();
-      // compute top of element relative to document
+      // If mobile drawer is open, close it before scrolling
+      const navEl = document.getElementById('site-nav');
+      const fabEl = document.getElementById('menu-fab');
+      if (navEl && navEl.classList.contains('mobile-drawer')) {
+        navEl.classList.remove('mobile-drawer');
+        if (fabEl) fabEl.setAttribute('aria-expanded', 'false');
+      }
+
+      // compute top of element relative to document and subtract header height
       const rect = targetEl.getBoundingClientRect();
-      const targetY = rect.top + window.scrollY - 10; // small offset
+      const header = document.querySelector('.site-header');
+      const headerHeight = header ? header.getBoundingClientRect().height : 0;
+      const GAP = 12; // extra breathing room
+      const targetY = rect.top + window.scrollY - headerHeight - GAP;
       scrollToY(targetY, DURATION).then(() => {
         // update hash without jumping
         history.replaceState(null, '', '#' + targetId);
       });
     }
-  }, { passive: true });
+  });
 })();
 
 // Header shrink-on-scroll and mobile FAB toggle
