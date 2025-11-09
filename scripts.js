@@ -51,8 +51,7 @@
       const rect = targetEl.getBoundingClientRect();
       const header = document.querySelector('.site-header');
       const headerHeight = header ? header.getBoundingClientRect().height : 0;
-      const GAP = 12; // extra breathing room
-      const targetY = rect.top + window.scrollY - headerHeight - GAP;
+      const targetY = rect.top + window.scrollY - headerHeight;
       scrollToY(targetY, DURATION).then(() => {
         // update hash without jumping
         history.replaceState(null, '', '#' + targetId);
